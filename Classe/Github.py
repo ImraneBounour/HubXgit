@@ -1,5 +1,8 @@
 import os
 import requests
+import urllib3
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 class Github:
     def __init__(self, token, repo_owner, repo_name):
@@ -26,7 +29,7 @@ class Github:
 
         # Get the latest commit
         commits_url = f"{self.api_url}/commits"
-        response = requests.get(commits_url, headers=headers)
+        response = requests.get(commits_url, headers=headers, verify=False)
         if response.status_code != 200:
             raise RuntimeError(f"Failed to fetch commits: {response.status_code} {response.text}")
 
@@ -39,7 +42,7 @@ class Github:
 
         # Get the details of the latest commit
         commit_url = f"{self.api_url}/commits/{commit_sha}"
-        response = requests.get(commit_url, headers=headers)
+        response = requests.get(commit_url, headers=headers, verify=False)
         if response.status_code != 200:
             raise RuntimeError(f"Failed to fetch commit details: {response.status_code} {response.text}")
 
