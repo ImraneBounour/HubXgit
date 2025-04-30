@@ -1,18 +1,26 @@
 from Github import Github
 
 if __name__ == "__main__":
-    # Specify the path to your local git repository
-    repo_path = "path/to/your/repo"
+    # Informations nécessaires pour accéder au GitHub
+    token = "your_github_token"  # Remplacez par votre token GitHub
+    repo_owner = "repo_owner"    # Remplacez par le propriétaire du dépôt
+    repo_name = "repo_name"      # Remplacez par le nom du dépôt
 
     try:
-        # Initialize the Github class
-        github = Github(repo_path)
+        # Initialiser la classe Github
+        github = Github(token, repo_owner, repo_name)
 
-        # Retrieve new commits
-        commits = github.get_new_commits()
+        # Récupérer le contenu du dernier commit
+        latest_commit = github.get_new_commit_content()
 
-        # Print the retrieved commits
-        for commit in commits:
-            print(f"Hash: {commit['hash']}, Author: {commit['author']}, Message: {commit['message']}")
+        # Afficher les informations du dernier commit
+        print(f"Commit SHA: {latest_commit['sha']}")
+        print(f"Auteur: {latest_commit['author']}")
+        print(f"Message: {latest_commit['message']}")
+        print("Fichiers modifiés:")
+        for file in latest_commit['files']:
+            print(f"  - {file['filename']} ({file['status']})")
+            if file.get('patch'):
+                print(f"    Patch:\n{file['patch']}")
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print(f"Une erreur s'est produite : {e}")
