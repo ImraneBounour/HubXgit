@@ -20,10 +20,13 @@ def test_github_api():
         print("Access to GitHub API successful!")
         print("Latest Commit SHA:", commit_content['sha'])
         print("Author:", commit_content['author'])
+        print("------------------------------------")
         print("Message:", commit_content['message'])
+        print("------------------------------------")
         print("Files Changed:", commit_content['files'])
     except Exception as e:
         print("Failed to access GitHub API:", str(e))
 
 if __name__ == "__main__":
     test_github_api()
+    
