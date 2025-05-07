@@ -3,7 +3,7 @@
 
 # Allow specific files to be included
 !.gitignore
-!.env.example
+!.env.exemple
 
 # Ignore build and output directories
 dist/
