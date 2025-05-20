@@ -4,6 +4,7 @@
 # Allow specific files to be included
 !.gitignore
 !.env.exemple
+!.env
 
 # Ignore build and output directories
 dist/
