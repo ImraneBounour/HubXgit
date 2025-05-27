@@ -1,0 +1,23 @@
+# GitLab CI pipeline to build a pip package
+stages:
+  - build
+
+variables:
+  UV_VERSION: 0.5
+  PYTHON_VERSION: 3.12
+  BASE_LAYER: bookworm-slim
+  # GitLab CI creates a separate mountpoint for the build directory,
+  # so we need to copy instead of using hard links.
+  UV_LINK_MODE: copy
+
+build_package:
+  stage: build
+  image: ghcr.io/astral-sh/uv:$UV_VERSION-python$PYTHON_VERSION-$BASE_LAYER
+  script:
+    - uv sync
+    - uv add build
+    - uv run python -m build
+  artifacts:
+    paths:
+      - dist/*.whl
+      - dist/*.tar.gz

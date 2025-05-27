@@ -75,7 +75,7 @@ class ChatInetum(BaseChatModel):
 
         self.max_tokens = max_tokens or DEFAULT_CONFIG["max_retries"]
         self.stop = kwargs.get("stop", None)
-
+        
         self.inetum_api = InetumSDK(
             api_key=api_key,
             base_url=api_url,
